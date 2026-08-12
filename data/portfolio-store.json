@@ -1,0 +1,315 @@
+{
+  "theme": "orange",
+  "darkMode": true,
+  "profile": {
+    "name": "Software Developer",
+    "title": "Senior Full-Stack & AI Solutions Engineer",
+    "tagline": "Software Developer & เว็บแอปพลิเคชันยุคใหม่ด้วย AI และ Modern Web Tech",
+    "bio": "นักพัฒนาซอฟต์แวร์ผู้หลงใหลในการออกแบบระบบ web architecture ที่มีประสิทธิภาพสูง สวยงาม ใช้งานง่าย และตอบโจทย์ธุรกิจจริง",
+    "aboutDetail": "ผมมีประสบการณ์กว่า 5 ปีในการพัฒนาระบบ Web Application, Cloud Infrastructure และ AI Integration ทำงานครอบคลุมทั้ง Frontend UI/UX, Scalable Microservices และ Machine Learning Pipelines มีเป้าหมายในการส่งมอบซอฟต์แวร์ระดับพรีเมียมที่รวดเร็ว ปลอดภัย และสร้างคุณค่าอย่างมหาศาล",
+    "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
+    "coverUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1600",
+    "location": "Nonthaburi, Thailand",
+    "email": "nanthwid101@gmail.com",
+    "phone": "+66 95 585 7573",
+    "status": "available",
+    "statusText": "พร้อมรับงาน Freelance / Full-time / Project Consulting",
+    "yearsExperience": 5,
+    "completedProjects": 0,
+    "happyClients": 0,
+    "socialLinks": {
+      "line": "@myportfolio",
+      "github": "https://github.com",
+      "discord": "dev#1234",
+      "twitter": "https://twitter.com",
+      "website": "https://myportfolio.dev",
+      "linkedin": "https://linkedin.com"
+    },
+    "resumeUrl": "#"
+  },
+  "projects": [
+    {
+      "id": "proj-1786543690173",
+      "title": "test",
+      "category": "Web",
+      "shortDescription": "",
+      "fullDescription": "",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+      "gallery": [],
+      "tags": [
+        "React",
+        "TypeScript",
+        "REST API"
+      ],
+      "featured": false,
+      "demoUrl": "",
+      "githubUrl": "",
+      "completionDate": "2026-08",
+      "metrics": [],
+      "client": "",
+      "role": ""
+    },
+    {
+      "id": "proj-2",
+      "title": "Nexus Dashboard - Enterprise FinTech Platform",
+      "category": "Full Stack",
+      "shortDescription": "ระบบบริหารจัดการธุรกรรมการเงินและวิเคราะห์สถิติเรียลไทม์ สำหรับธุรกิจระดับเอ็นเตอร์ไพรส์",
+      "fullDescription": "ระบบบริหารการเงินแบบ End-to-End รองรับการเชื่อมต่อกับ Payment Gateways หลากหลาย รองรับ Multi-Currency การคำนวณภาษีอัตโนมัติ และแสดงผล Visual Chart แบบ Interactive ตอบสนองการตัดสินใจอย่างแม่นยำ",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+      "gallery": [
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000"
+      ],
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Recharts",
+        "Docker",
+        "Tailwind CSS"
+      ],
+      "featured": true,
+      "demoUrl": "https://example.com/demo2",
+      "githubUrl": "https://github.com/example/nexus-fintech",
+      "completionDate": "2025-11",
+      "metrics": [
+        {
+          "label": "Transaction Vol",
+          "value": "$12M+/Month"
+        },
+        {
+          "label": "Latency",
+          "value": "<45ms API Response"
+        }
+      ],
+      "client": "FinTech Enterprise Solution",
+      "role": "Senior Backend & UI Architect"
+    },
+    {
+      "id": "proj-1",
+      "title": "OmniAI - Smart Creative Studio",
+      "category": "AI & Data",
+      "shortDescription": "แพลตฟอร์ม AI สร้างสรรค์คอนเทนต์อัตโนมัติ รวบรวม GenAI Text, Image และ Data Analytics ในที่เดียว",
+      "fullDescription": "OmniAI เป็นซอฟต์แวร์ Web SaaS ที่รวมความสามารถของ LLMs และ Image Models เข้ากับระบบ Workflow Management ช่วยให้ทีมการตลาดและนักสร้างสรรค์ผลิตมัลติมีเดียคอนเทนต์ได้เร็วกว่าเดิม 10 เท่า พร้อมระบบ Analytics แบบ Real-time",
+      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000",
+      "gallery": [
+        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000",
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000"
+      ],
+      "tags": [
+        "React 19",
+        "TypeScript",
+        "Gemini API",
+        "Tailwind CSS",
+        "Node.js",
+        "Redis"
+      ],
+      "featured": true,
+      "demoUrl": "https://example.com/demo1",
+      "githubUrl": "https://github.com/example/omniai",
+      "completionDate": "2026-03",
+      "metrics": [
+        {
+          "label": "User Growth",
+          "value": "+150k Active Users"
+        },
+        {
+          "label": "Performance",
+          "value": "99.9% Uptime"
+        },
+        {
+          "label": "Efficiency",
+          "value": "85% Time Saved"
+        }
+      ],
+      "client": "Global Tech Inc.",
+      "role": "Lead Full-Stack Developer"
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk-1",
+      "name": "React & Next.js",
+      "category": "Frontend",
+      "proficiency": 95,
+      "iconName": "Code2",
+      "years": 5,
+      "featured": true
+    },
+    {
+      "id": "sk-2",
+      "name": "TypeScript",
+      "category": "Frontend",
+      "proficiency": 92,
+      "iconName": "FileCode",
+      "years": 4,
+      "featured": true
+    },
+    {
+      "id": "sk-3",
+      "name": "Tailwind CSS & Styling",
+      "category": "Frontend",
+      "proficiency": 98,
+      "iconName": "Palette",
+      "years": 5,
+      "featured": true
+    },
+    {
+      "id": "sk-4",
+      "name": "Node.js & Express",
+      "category": "Backend",
+      "proficiency": 88,
+      "iconName": "Server",
+      "years": 4,
+      "featured": true
+    },
+    {
+      "id": "sk-5",
+      "name": "Python & AI Models",
+      "category": "AI & ML",
+      "proficiency": 85,
+      "iconName": "Cpu",
+      "years": 3,
+      "featured": true
+    },
+    {
+      "id": "sk-6",
+      "name": "Gemini API & LLMs",
+      "category": "AI & ML",
+      "proficiency": 90,
+      "iconName": "Sparkles",
+      "years": 2,
+      "featured": true
+    },
+    {
+      "id": "sk-1786544515587",
+      "name": "MYSQL",
+      "category": "Database",
+      "proficiency": 75,
+      "iconName": "MYSQL",
+      "years": 1,
+      "featured": false
+    },
+    {
+      "id": "sk-1786544819956",
+      "name": "PostgreSQL",
+      "category": "Database",
+      "proficiency": 80,
+      "iconName": "PostgreSQL",
+      "years": 1,
+      "featured": false
+    }
+  ],
+  "experiences": [
+    {
+      "id": "exp-1",
+      "company": "Professional Computer Co.,Ltd. (PCC)",
+      "role": "Senior Full-Stack & AI Solutions",
+      "period": "March 2026 - September 2026",
+      "location": "Bangkok, Thailand",
+      "description": "นำทีมพัฒนา Enterprise Web Applications และ AI-driven Products จัดทำสถาปัตยกรรมซอฟต์แวร์ และปรับปรุงประสิทธิภาพของระบบงาน ของกลมบัญชีกลาง",
+      "technologies": [
+        "Angular 19",
+        "TypeScript",
+        "Java Spring Boot",
+        "Gemini AI",
+        "Docker",
+        "AWS/S3"
+      ],
+      "highlights": [
+        "ออกแบบระบบ สร้างหนังสือจัดสือจัดจาง  60%",
+        "สร้าง Web Dashboard สำหรับติดตามผลการดำเนินงานของผู้รับว่าจ้าง",
+        "ปรับปรุง โครงสร้างการจัดเก็บเอกสาร เพื่อทำการ ตรวจสอบเงื่อนไขดำเนินงานตามแผนการจัดซื้อจัดจ้าง"
+      ],
+      "current": true
+    },
+    {
+      "id": "exp-2",
+      "company": "PTT EP",
+      "role": "Full-Stack Web Developer",
+      "period": "May 2025 - January 2026",
+      "location": "Bangkok, Thailand",
+      "description": "พัฒนาระบบ Enterpise Resorce, SaaS Dashboards และ Custom Web Applications ให้แก่ PTT ",
+      "technologies": [
+        "Angular 19",
+        "Tailwind CSS",
+        "PostgreSQL",
+        "GO"
+      ],
+      "highlights": [
+        "สร้างสรรค์ผลงานมากกว่า 15 โครงการที่ประสบความสำเร็จสูง",
+        "พัฒนาระบบ Payment Gateway integration ที่รองรับหลายประเทศ"
+      ],
+      "current": false
+    },
+    {
+      "id": "exp-3",
+      "company": "SCB IT",
+      "role": "Full-Stack Developer",
+      "period": "2024 - 2025",
+      "location": "Bangkok, Thailand",
+      "description": "ดูแลการพัฒนาหน้าเว็บ User Interface และ ระบบ api สำหรับการ rebuild ระบบ portal รุ่นเก่าของธนาคาร เพื่อรองรับการใช้งานในสถาปัตยกรรมใหม่ของธนาคาร",
+      "technologies": [
+        "React",
+        "Java Spring Boot",
+        ".Net",
+        "CSS3 / Material",
+        "confluence",
+        "jira",
+        "git",
+        "Jenkins"
+      ],
+      "highlights": [
+        "พัฒนาระบบสำหรับทำ Enterprise Application",
+        "ดูแลและปรับปรุงแก้ไขระบบให้แก่องค์กร",
+        "พัฒนาระบบจัดการฐานข้อมูลสำหรับองค์กรให้กับ ธนาคารกรุงไทย"
+      ],
+      "current": false
+    },
+    {
+      "id": "exp-4",
+      "company": "ACCENTURE SOLUTIONS CO., LTD.",
+      "role": "System Achitecture Design & Development",
+      "period": "2019 - 2024",
+      "location": "Bangkok, Thailand",
+      "description": "ดูแลการพัฒนาหน้าเว็บ User Interface ที่ตอบสนองลื่นไหล (Responsive UI) และการทดสอบ Usability",
+      "technologies": [
+        "React",
+        "Angular 19",
+        ".Net",
+        "JavaScript",
+        "CSS3 / Tailwind",
+        "Figma"
+      ],
+      "highlights": [
+        "พัฒนาระบบสำหรับทำ Enterprise Application",
+        "ดูแลและปรับปรุงแก้ไขระบบให้แก่องค์กร",
+        "พัฒนาระบบจัดการฐานข้อมูลสำหรับองค์กรให้กับ ธนาคารกรุงไทย",
+        "พัฒนาระบบจัดการฐานข้อมูลสำหรับองค์กรให้กับ ธนาคารกรุงไทย"
+      ],
+      "current": false
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-1",
+      "institution": "มหาวิทยาลัยราชภัฏนครปฐม (Ratchabhut University)",
+      "degree": "ปริญญาตรี วิทยาการคอมพิวเตอร์ (B.Sc. in Computer Science)",
+      "period": "2014 - 2019",
+      "description": "เน้นการศึกษาด้าน Software Engineering, Data Structures & Algorithms, Database Design และ Artificial Intelligence",
+      "honors": ""
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "test-1",
+      "author": "คุณอนันต์ วงศ์สุวรรณ",
+      "role": "CEO & Co-Founder",
+      "company": "OmniTech Solutions",
+      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300",
+      "content": "ทำงานด้วยแล้วประทับใจมาก ไม่เพียงแต่โค้ดเนียบและรวดเร็ว แต่ยังให้คำแนะนำเรื่อง UI/UX และระบบ AI เพิ่มเติมที่ทำให้ผลิตภัณฑ์ของเราโดดเด่นเหนือคู่แข่ง!",
+      "rating": 5
+    }
+  ],
+  "inboxMessages": []
+}

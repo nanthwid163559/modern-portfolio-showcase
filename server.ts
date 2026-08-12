@@ -9,7 +9,7 @@ import { getSupabaseClient, SUPABASE_SQL_SCHEMA } from "./src/lib/supabase";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json({ limit: '10mb' }));
 
@@ -178,8 +178,418 @@ function saveDataToDisk() {
   }
 }
 
+async function fetchPortfolioFromSupabase() {
+  const supabase = getSupabaseClient();
+  if (!supabase) return null;
+
+  try {
+    const { data: profileRows, error: profileErr } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', 'default');
+
+    if (profileErr) throw profileErr;
+
+    const { data: projectRows, error: projectErr } = await supabase
+      .from('projects')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (projectErr) throw projectErr;
+
+    const { data: skillRows, error: skillErr } = await supabase
+      .from('skills')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (skillErr) throw skillErr;
+
+    const { data: expRows, error: expErr } = await supabase
+      .from('experiences')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (expErr) throw expErr;
+
+    const { data: eduRows, error: eduErr } = await supabase
+      .from('education')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (eduErr) throw eduErr;
+
+    const { data: testRows, error: testErr } = await supabase
+      .from('testimonials')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (testErr) throw testErr;
+
+    const { data: msgRows, error: msgErr } = await supabase
+      .from('messages')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (msgErr) throw msgErr;
+
+    if (profileRows && profileRows.length === 0) {
+      console.log("No profile row found, initializing Supabase database with default portfolio data...");
+      const defaultDbProfile = {
+        id: 'default',
+        name: initialData.profile.name,
+        title: initialData.profile.title,
+        tagline: initialData.profile.tagline,
+        bio: initialData.profile.bio,
+        about_detail: initialData.profile.aboutDetail,
+        avatar_url: initialData.profile.avatarUrl,
+        cover_url: initialData.profile.coverUrl,
+        location: initialData.profile.location,
+        email: initialData.profile.email,
+        phone: initialData.profile.phone,
+        status: initialData.profile.status,
+        status_text: initialData.profile.statusText,
+        years_experience: initialData.profile.yearsExperience,
+        completed_projects: initialData.profile.completedProjects,
+        happy_clients: initialData.profile.happyClients,
+        social_links: initialData.profile.socialLinks,
+        resume_url: initialData.profile.resumeUrl,
+        theme: initialData.theme,
+        dark_mode: initialData.darkMode
+      };
+
+      const { error: profErr } = await supabase.from('profiles').insert(defaultDbProfile);
+      if (profErr) {
+        console.error("Failed to insert default profile to Supabase:", profErr);
+        throw profErr;
+      }
+
+      for (const proj of initialData.projects) {
+        const { error: projErr } = await supabase.from('projects').insert({
+          id: proj.id,
+          title: proj.title,
+          category: proj.category,
+          short_description: proj.shortDescription,
+          full_description: proj.fullDescription,
+          image_url: proj.imageUrl,
+          gallery: proj.gallery,
+          tags: proj.tags,
+          featured: proj.featured,
+          demo_url: proj.demoUrl,
+          github_url: proj.githubUrl,
+          completion_date: proj.completionDate,
+          metrics: proj.metrics,
+          client: proj.client || "",
+          role: proj.role || ""
+        });
+        if (projErr) console.error(`Failed to insert project ${proj.id} to Supabase:`, projErr);
+      }
+      for (const sk of initialData.skills) {
+        const { error: skErr } = await supabase.from('skills').insert({
+          id: sk.id,
+          name: sk.name,
+          category: sk.category,
+          proficiency: sk.proficiency,
+          icon_name: sk.iconName,
+          years: sk.years,
+          featured: sk.featured
+        });
+        if (skErr) console.error(`Failed to insert skill ${sk.id} to Supabase:`, skErr);
+      }
+      for (const exp of initialData.experiences) {
+        const { error: expErr } = await supabase.from('experiences').insert({
+          id: exp.id,
+          company: exp.company,
+          role: exp.role,
+          period: exp.period,
+          location: exp.location,
+          description: exp.description,
+          technologies: exp.technologies,
+          highlights: exp.highlights,
+          current: exp.current
+        });
+        if (expErr) console.error(`Failed to insert experience ${exp.id} to Supabase:`, expErr);
+      }
+      if (initialData.education) {
+        for (const edu of initialData.education) {
+          const { error: eduErr } = await supabase.from('education').insert({
+            id: edu.id,
+            institution: edu.institution,
+            degree: edu.degree,
+            period: edu.period,
+            description: edu.description,
+            honors: edu.honors
+          });
+          if (eduErr) console.error(`Failed to insert education ${edu.id} to Supabase:`, eduErr);
+        }
+      }
+      for (const test of initialData.testimonials) {
+        const { error: testErr } = await supabase.from('testimonials').insert({
+          id: test.id,
+          author: test.author,
+          role: test.role,
+          company: test.company,
+          avatar_url: test.avatarUrl,
+          content: test.content,
+          rating: test.rating
+        });
+        if (testErr) console.error(`Failed to insert testimonial ${test.id} to Supabase:`, testErr);
+      }
+
+      console.log("Database initialized successfully!");
+      return initialData;
+    }
+
+    const profileRow = profileRows && profileRows[0];
+    const profile = profileRow ? {
+      name: profileRow.name || "",
+      title: profileRow.title || "",
+      tagline: profileRow.tagline || "",
+      bio: profileRow.bio || "",
+      aboutDetail: profileRow.about_detail || "",
+      avatarUrl: profileRow.avatar_url || "",
+      coverUrl: profileRow.cover_url || "",
+      location: profileRow.location || "",
+      email: profileRow.email || "",
+      phone: profileRow.phone || "",
+      status: profileRow.status || "available",
+      statusText: profileRow.status_text || "",
+      yearsExperience: profileRow.years_experience || 0,
+      completedProjects: profileRow.completed_projects || 0,
+      happyClients: profileRow.happy_clients || 0,
+      socialLinks: profileRow.social_links || {},
+      resumeUrl: profileRow.resume_url || "#"
+    } : { ...initialData.profile };
+
+    const theme = profileRow ? (profileRow.theme || initialData.theme) : initialData.theme;
+    const darkMode = profileRow ? (profileRow.dark_mode !== false) : initialData.darkMode;
+
+    const projects = (projectRows || []).map((row: any) => ({
+      id: row.id,
+      title: row.title,
+      category: row.category,
+      shortDescription: row.short_description || "",
+      fullDescription: row.full_description || "",
+      imageUrl: row.image_url || "",
+      gallery: row.gallery || [],
+      tags: row.tags || [],
+      featured: !!row.featured,
+      demoUrl: row.demo_url || "",
+      githubUrl: row.github_url || "",
+      completionDate: row.completion_date || "",
+      metrics: row.metrics || [],
+      client: row.client || "",
+      role: row.role || ""
+    }));
+
+    const skills = (skillRows || []).map((row: any) => ({
+      id: row.id,
+      name: row.name,
+      category: row.category,
+      proficiency: row.proficiency || 80,
+      iconName: row.icon_name || "Code2",
+      years: row.years || 1,
+      featured: !!row.featured
+    }));
+
+    const experiences = (expRows || []).map((row: any) => ({
+      id: row.id,
+      company: row.company,
+      role: row.role,
+      period: row.period || "",
+      location: row.location || "",
+      description: row.description || "",
+      technologies: row.technologies || [],
+      highlights: row.highlights || [],
+      current: !!row.current
+    }));
+
+    const education = (eduRows || []).map((row: any) => ({
+      id: row.id,
+      institution: row.institution,
+      degree: row.degree,
+      period: row.period || "",
+      description: row.description || "",
+      honors: row.honors || ""
+    }));
+
+    const testimonials = (testRows || []).map((row: any) => ({
+      id: row.id,
+      author: row.author,
+      role: row.role || "",
+      company: row.company || "",
+      avatarUrl: row.avatar_url || "",
+      content: row.content,
+      rating: row.rating || 5
+    }));
+
+    const inboxMessages = (msgRows || []).map((row: any) => ({
+      id: row.id,
+      name: row.name,
+      email: row.email,
+      subject: row.subject || "",
+      message: row.message,
+      createdAt: row.created_at || new Date().toISOString(),
+      read: !!row.read
+    }));
+
+    return {
+      theme,
+      darkMode,
+      profile,
+      projects,
+      skills,
+      experiences,
+      education,
+      testimonials,
+      inboxMessages
+    };
+  } catch (err: any) {
+    console.warn("Supabase query failed, falling back to local memory/disk store. Error details:", err.message || err);
+    return null;
+  }
+}
+
+async function savePortfolioToSupabase(newConfig: any) {
+  const supabase = getSupabaseClient();
+  if (!supabase) return false;
+
+  try {
+    if (newConfig.profile || newConfig.theme !== undefined || newConfig.darkMode !== undefined) {
+      const current = await fetchPortfolioFromSupabase() || initialData;
+      const profile = newConfig.profile || current.profile;
+      const theme = newConfig.theme || current.theme;
+      const darkMode = newConfig.darkMode !== undefined ? newConfig.darkMode : current.darkMode;
+
+      const dbProfile = {
+        name: profile.name,
+        title: profile.title,
+        tagline: profile.tagline,
+        bio: profile.bio,
+        about_detail: profile.aboutDetail,
+        avatar_url: profile.avatarUrl,
+        cover_url: profile.coverUrl,
+        location: profile.location,
+        email: profile.email,
+        phone: profile.phone,
+        status: profile.status,
+        status_text: profile.statusText,
+        years_experience: profile.yearsExperience,
+        completed_projects: profile.completedProjects,
+        happy_clients: profile.happyClients,
+        social_links: profile.socialLinks,
+        resume_url: profile.resumeUrl,
+        theme,
+        dark_mode: darkMode,
+        updated_at: new Date().toISOString()
+      };
+
+      const { error } = await supabase
+        .from('profiles')
+        .update(dbProfile)
+        .eq('id', 'default');
+
+      if (error) throw error;
+    }
+
+    if (newConfig.experiences) {
+      await supabase.from('experiences').delete().neq('id', '');
+      for (const exp of newConfig.experiences) {
+        await supabase.from('experiences').insert({
+          id: exp.id,
+          company: exp.company,
+          role: exp.role,
+          period: exp.period,
+          location: exp.location,
+          description: exp.description,
+          technologies: exp.technologies,
+          highlights: exp.highlights,
+          current: exp.current
+        });
+      }
+    }
+
+    if (newConfig.education) {
+      await supabase.from('education').delete().neq('id', '');
+      for (const edu of newConfig.education) {
+        await supabase.from('education').insert({
+          id: edu.id,
+          institution: edu.institution,
+          degree: edu.degree,
+          period: edu.period,
+          description: edu.description,
+          honors: edu.honors
+        });
+      }
+    }
+
+    if (newConfig.testimonials) {
+      await supabase.from('testimonials').delete().neq('id', '');
+      for (const test of newConfig.testimonials) {
+        await supabase.from('testimonials').insert({
+          id: test.id,
+          author: test.author,
+          role: test.role,
+          company: test.company,
+          avatar_url: test.avatarUrl,
+          content: test.content,
+          rating: test.rating
+        });
+      }
+    }
+
+    if (newConfig.projects) {
+      await supabase.from('projects').delete().neq('id', '');
+      for (const proj of newConfig.projects) {
+        await supabase.from('projects').insert({
+          id: proj.id,
+          title: proj.title,
+          category: proj.category,
+          short_description: proj.shortDescription,
+          full_description: proj.fullDescription,
+          image_url: proj.imageUrl,
+          gallery: proj.gallery,
+          tags: proj.tags,
+          featured: proj.featured,
+          demo_url: proj.demoUrl,
+          github_url: proj.githubUrl,
+          completion_date: proj.completionDate,
+          metrics: proj.metrics,
+          client: proj.client || "",
+          role: proj.role || ""
+        });
+      }
+    }
+
+    if (newConfig.skills) {
+      await supabase.from('skills').delete().neq('id', '');
+      for (const sk of newConfig.skills) {
+        await supabase.from('skills').insert({
+          id: sk.id,
+          name: sk.name,
+          category: sk.category,
+          proficiency: sk.proficiency,
+          icon_name: sk.iconName,
+          years: sk.years,
+          featured: sk.featured
+        });
+      }
+    }
+
+    return true;
+  } catch (err: any) {
+    console.error("Failed to save to Supabase:", err.message || err);
+    return false;
+  }
+}
+
 // Initialize load
 loadDataFromDisk();
+fetchPortfolioFromSupabase().then(dbData => {
+  if (dbData) {
+    portfolioData = dbData;
+    console.log("Initialized portfolio data from Supabase successfully.");
+  }
+});
 
 // Middleware to log REST API calls
 app.use("/api", (req, res, next) => {
@@ -218,19 +628,28 @@ app.get("/api/health", (req, res) => {
 });
 
 // 2. GET full portfolio
-app.get("/api/portfolio", (req, res) => {
+app.get("/api/portfolio", async (req, res) => {
+  const dbData = await fetchPortfolioFromSupabase();
+  if (dbData) {
+    portfolioData = dbData;
+  }
   res.json(portfolioData);
 });
 
 // 3. PUT update full portfolio
-app.put("/api/portfolio", (req, res) => {
+app.put("/api/portfolio", async (req, res) => {
   const newConfig = req.body;
   if (!newConfig || typeof newConfig !== 'object') {
     return res.status(400).json({ error: "Invalid payload" });
   }
+  const savedDb = await savePortfolioToSupabase(newConfig);
   portfolioData = { ...portfolioData, ...newConfig };
   saveDataToDisk();
-  res.json({ success: true, message: "Portfolio config updated successfully", data: portfolioData });
+  res.json({
+    success: true,
+    message: savedDb ? "Portfolio config updated successfully in Supabase & local disk" : "Portfolio config updated successfully on local disk",
+    data: portfolioData
+  });
 });
 
 /* ==========================================================================
@@ -238,12 +657,16 @@ app.put("/api/portfolio", (req, res) => {
    ========================================================================== */
 
 // GET projects
-app.get("/api/projects", (req, res) => {
+app.get("/api/projects", async (req, res) => {
+  const dbData = await fetchPortfolioFromSupabase();
+  if (dbData) {
+    portfolioData = dbData;
+  }
   res.json({ count: portfolioData.projects.length, projects: portfolioData.projects });
 });
 
 // POST new project
-app.post("/api/projects", (req, res) => {
+app.post("/api/projects", async (req, res) => {
   const proj = req.body;
   if (!proj.title) {
     return res.status(400).json({ error: "Project title is required" });
@@ -259,28 +682,95 @@ app.post("/api/projects", (req, res) => {
     featured: false,
     completionDate: new Date().toISOString().slice(0, 7),
     metrics: [],
+    client: "",
+    role: "",
     ...proj
   };
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('projects').insert({
+        id: newProj.id,
+        title: newProj.title,
+        category: newProj.category,
+        short_description: newProj.shortDescription,
+        full_description: newProj.fullDescription,
+        image_url: newProj.imageUrl,
+        gallery: newProj.gallery,
+        tags: newProj.tags,
+        featured: newProj.featured,
+        demo_url: newProj.demoUrl,
+        github_url: newProj.githubUrl,
+        completion_date: newProj.completionDate,
+        metrics: newProj.metrics,
+        client: newProj.client,
+        role: newProj.role
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase project insert failed:", err.message || err);
+    }
+  }
+
   portfolioData.projects.unshift(newProj);
   saveDataToDisk();
   res.status(201).json({ success: true, project: newProj });
 });
 
 // PUT update project by ID
-app.put("/api/projects/:id", (req, res) => {
+app.put("/api/projects/:id", async (req, res) => {
   const { id } = req.params;
   const index = portfolioData.projects.findIndex(p => p.id === id);
   if (index === -1) {
     return res.status(404).json({ error: "Project not found" });
   }
-  portfolioData.projects[index] = { ...portfolioData.projects[index], ...req.body };
+  const updatedProj = { ...portfolioData.projects[index], ...req.body };
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('projects').update({
+        title: updatedProj.title,
+        category: updatedProj.category,
+        short_description: updatedProj.shortDescription,
+        full_description: updatedProj.fullDescription,
+        image_url: updatedProj.imageUrl,
+        gallery: updatedProj.gallery,
+        tags: updatedProj.tags,
+        featured: updatedProj.featured,
+        demo_url: updatedProj.demoUrl,
+        github_url: updatedProj.githubUrl,
+        completion_date: updatedProj.completionDate,
+        metrics: updatedProj.metrics,
+        client: updatedProj.client,
+        role: updatedProj.role
+      }).eq('id', id);
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase project update failed:", err.message || err);
+    }
+  }
+
+  portfolioData.projects[index] = updatedProj;
   saveDataToDisk();
-  res.json({ success: true, project: portfolioData.projects[index] });
+  res.json({ success: true, project: updatedProj });
 });
 
 // DELETE project by ID
-app.delete("/api/projects/:id", (req, res) => {
+app.delete("/api/projects/:id", async (req, res) => {
   const { id } = req.params;
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('projects').delete().eq('id', id);
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase project delete failed:", err.message || err);
+    }
+  }
+
   const initialLen = portfolioData.projects.length;
   portfolioData.projects = portfolioData.projects.filter(p => p.id !== id);
   if (portfolioData.projects.length === initialLen) {
@@ -295,12 +785,16 @@ app.delete("/api/projects/:id", (req, res) => {
    ========================================================================== */
 
 // GET skills
-app.get("/api/skills", (req, res) => {
+app.get("/api/skills", async (req, res) => {
+  const dbData = await fetchPortfolioFromSupabase();
+  if (dbData) {
+    portfolioData = dbData;
+  }
   res.json({ count: portfolioData.skills.length, skills: portfolioData.skills });
 });
 
 // POST new skill
-app.post("/api/skills", (req, res) => {
+app.post("/api/skills", async (req, res) => {
   const sk = req.body;
   if (!sk.name) {
     return res.status(400).json({ error: "Skill name is required" });
@@ -314,26 +808,75 @@ app.post("/api/skills", (req, res) => {
     featured: false,
     ...sk
   };
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('skills').insert({
+        id: newSkill.id,
+        name: newSkill.name,
+        category: newSkill.category,
+        proficiency: newSkill.proficiency,
+        icon_name: newSkill.iconName,
+        years: newSkill.years,
+        featured: newSkill.featured
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase skill insert failed:", err.message || err);
+    }
+  }
+
   portfolioData.skills.push(newSkill);
   saveDataToDisk();
   res.status(201).json({ success: true, skill: newSkill });
 });
 
 // PUT update skill
-app.put("/api/skills/:id", (req, res) => {
+app.put("/api/skills/:id", async (req, res) => {
   const { id } = req.params;
   const index = portfolioData.skills.findIndex(s => s.id === id);
   if (index === -1) {
     return res.status(404).json({ error: "Skill not found" });
   }
-  portfolioData.skills[index] = { ...portfolioData.skills[index], ...req.body };
+  const updatedSkill = { ...portfolioData.skills[index], ...req.body };
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('skills').update({
+        name: updatedSkill.name,
+        category: updatedSkill.category,
+        proficiency: updatedSkill.proficiency,
+        icon_name: updatedSkill.iconName,
+        years: updatedSkill.years,
+        featured: updatedSkill.featured
+      }).eq('id', id);
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase skill update failed:", err.message || err);
+    }
+  }
+
+  portfolioData.skills[index] = updatedSkill;
   saveDataToDisk();
-  res.json({ success: true, skill: portfolioData.skills[index] });
+  res.json({ success: true, skill: updatedSkill });
 });
 
 // DELETE skill
-app.delete("/api/skills/:id", (req, res) => {
+app.delete("/api/skills/:id", async (req, res) => {
   const { id } = req.params;
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('skills').delete().eq('id', id);
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase skill delete failed:", err.message || err);
+    }
+  }
+
   portfolioData.skills = portfolioData.skills.filter(s => s.id !== id);
   saveDataToDisk();
   res.json({ success: true, message: `Skill ${id} deleted` });
@@ -344,7 +887,11 @@ app.delete("/api/skills/:id", (req, res) => {
    ========================================================================== */
 
 // GET all contact messages
-app.get("/api/messages", (req, res) => {
+app.get("/api/messages", async (req, res) => {
+  const dbData = await fetchPortfolioFromSupabase();
+  if (dbData) {
+    portfolioData = dbData;
+  }
   res.json({
     count: portfolioData.inboxMessages.length,
     unreadCount: portfolioData.inboxMessages.filter(m => !m.read).length,
@@ -353,7 +900,7 @@ app.get("/api/messages", (req, res) => {
 });
 
 // POST submit a contact message (Visitor -> Backend)
-app.post("/api/messages", (req, res) => {
+app.post("/api/messages", async (req, res) => {
   const { name, email, subject, message } = req.body;
   if (!name || !email || !message) {
     return res.status(400).json({ error: "Name, email, and message content are required" });
@@ -369,6 +916,24 @@ app.post("/api/messages", (req, res) => {
     read: false
   };
 
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('messages').insert({
+        id: newMessage.id,
+        name: newMessage.name,
+        email: newMessage.email,
+        subject: newMessage.subject,
+        message: newMessage.message,
+        read: newMessage.read,
+        created_at: newMessage.createdAt
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase message insert failed:", err.message || err);
+    }
+  }
+
   portfolioData.inboxMessages.unshift(newMessage);
   saveDataToDisk();
 
@@ -380,21 +945,46 @@ app.post("/api/messages", (req, res) => {
 });
 
 // PATCH toggle message read state
-app.patch("/api/messages/:id", (req, res) => {
+app.patch("/api/messages/:id", async (req, res) => {
   const { id } = req.params;
   const { read } = req.body;
   const msg = portfolioData.inboxMessages.find(m => m.id === id);
   if (!msg) {
     return res.status(404).json({ error: "Message not found" });
   }
-  msg.read = typeof read === 'boolean' ? read : !msg.read;
+  const newRead = typeof read === 'boolean' ? read : !msg.read;
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('messages').update({
+        read: newRead
+      }).eq('id', id);
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase message update failed:", err.message || err);
+    }
+  }
+
+  msg.read = newRead;
   saveDataToDisk();
   res.json({ success: true, message: msg });
 });
 
 // DELETE message
-app.delete("/api/messages/:id", (req, res) => {
+app.delete("/api/messages/:id", async (req, res) => {
   const { id } = req.params;
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('messages').delete().eq('id', id);
+      if (error) throw error;
+    } catch (err: any) {
+      console.warn("Supabase message delete failed:", err.message || err);
+    }
+  }
+
   portfolioData.inboxMessages = portfolioData.inboxMessages.filter(m => m.id !== id);
   saveDataToDisk();
   res.json({ success: true, message: `Message ${id} removed` });
@@ -420,7 +1010,7 @@ app.get("/api/supabase/status", async (req, res) => {
   try {
     // Attempt a lightweight query to test Supabase connection
     const { data, error } = await supabase.from('projects').select('id').limit(1);
-    
+
     if (error) {
       return res.json({
         configured: true,
@@ -501,7 +1091,7 @@ app.post("/api/admin/login", (req, res) => {
 app.post("/api/chat", async (req, res) => {
   try {
     const { message, profileContext } = req.body;
-    
+
     if (!message) {
       return res.status(400).json({ error: "Message is required" });
     }

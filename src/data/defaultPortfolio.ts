@@ -184,7 +184,7 @@ export const defaultPortfolioData: PortfolioConfig = {
         "สร้างสรรค์ผลงานมากกว่า 15 โครงการที่ประสบความสำเร็จสูง",
         "พัฒนาระบบ Payment Gateway integration ที่รองรับหลายประเทศ"
       ],
-      current: false
+      current: true
     },
     {
       id: "exp-3",

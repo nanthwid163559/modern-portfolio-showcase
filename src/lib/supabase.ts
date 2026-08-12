@@ -52,7 +52,12 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   status TEXT,
   status_text TEXT,
   years_experience INT,
+  completed_projects INT DEFAULT 0,
+  happy_clients INT DEFAULT 0,
   social_links JSONB,
+  resume_url TEXT DEFAULT '#',
+  theme TEXT DEFAULT 'orange',
+  dark_mode BOOLEAN DEFAULT TRUE,
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -71,6 +76,8 @@ CREATE TABLE IF NOT EXISTS public.projects (
   github_url TEXT,
   completion_date TEXT,
   metrics JSONB,
+  client TEXT,
+  role TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -86,7 +93,44 @@ CREATE TABLE IF NOT EXISTS public.skills (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 4. Contact Messages Table
+-- 4. Experiences Table
+CREATE TABLE IF NOT EXISTS public.experiences (
+  id TEXT PRIMARY KEY,
+  company TEXT NOT NULL,
+  role TEXT NOT NULL,
+  period TEXT,
+  location TEXT,
+  description TEXT,
+  technologies JSONB,
+  highlights JSONB,
+  current BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 5. Education Table
+CREATE TABLE IF NOT EXISTS public.education (
+  id TEXT PRIMARY KEY,
+  institution TEXT NOT NULL,
+  degree TEXT NOT NULL,
+  period TEXT,
+  description TEXT,
+  honors TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 6. Testimonials Table
+CREATE TABLE IF NOT EXISTS public.testimonials (
+  id TEXT PRIMARY KEY,
+  author TEXT NOT NULL,
+  role TEXT,
+  company TEXT,
+  avatar_url TEXT,
+  content TEXT NOT NULL,
+  rating INT DEFAULT 5,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 7. Contact Messages Table
 CREATE TABLE IF NOT EXISTS public.messages (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
@@ -101,6 +145,9 @@ CREATE TABLE IF NOT EXISTS public.messages (
 ALTER TABLE public.profiles DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.projects DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.skills DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.experiences DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.education DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.testimonials DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.messages DISABLE ROW LEVEL SECURITY;
 `;
 
