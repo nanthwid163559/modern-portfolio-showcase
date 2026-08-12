@@ -210,7 +210,7 @@ export const defaultPortfolioData: PortfolioConfig = {
       description: "เน้นการศึกษาด้าน Software Engineering, Data Structures & Algorithms, Database Design และ Artificial Intelligence",
       // honors: "เกียรตินิยมอันดับ 1 (First Class Honors) ผมก็อยากน่ะ แต่ก็น้นแหละ ผมชอบที่ใสใจในสิ่งที่ผมชอบมากว่ารายวิชาที่เพิ่มแค่หน่วยกิจ แล้วจบมาก็ไม่ได้ใช้"
     },
-      {
+    {
       id: "edu-2",
       institution: "มัธยมฐานบินกำแพงแสน (Mattayomthanbinkampangsaen School)",
       degree: "High School",
@@ -220,24 +220,24 @@ export const defaultPortfolioData: PortfolioConfig = {
     }
   ],
   testimonials: [
-    {
-      id: "test-1",
-      author: "คุณอนันต์ วงศ์สุวรรณ",
-      role: "CEO & Co-Founder",
-      company: "OmniTech Solutions",
-      avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300",
-      content: "ทำงานด้วยแล้วประทับใจมาก ไม่เพียงแต่โค้ดเนียบและรวดเร็ว แต่ยังให้คำแนะนำเรื่อง UI/UX และระบบ AI เพิ่มเติมที่ทำให้ผลิตภัณฑ์ของเราโดดเด่นเหนือคู่แข่ง!",
-      rating: 5
-    },
-    {
-      id: "test-2",
-      author: "Sarah Jenkins",
-      role: "Head of Product",
-      company: "Global Commerce Group",
-      avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300",
-      content: "An extraordinary engineer who truly understands both technical depth and visual aesthetics. Highly recommended for any ambitious full-stack project!",
-      rating: 5
-    }
+    // {
+    //   id: "test-1",
+    //   author: "คุณอนันต์ วงศ์สุวรรณ",
+    //   role: "CEO & Co-Founder",
+    //   company: "OmniTech Solutions",
+    //   avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300",
+    //   content: "ทำงานด้วยแล้วประทับใจมาก ไม่เพียงแต่โค้ดเนียบและรวดเร็ว แต่ยังให้คำแนะนำเรื่อง UI/UX และระบบ AI เพิ่มเติมที่ทำให้ผลิตภัณฑ์ของเราโดดเด่นเหนือคู่แข่ง!",
+    //   rating: 5
+    // },
+    // {
+    //   id: "test-2",
+    //   author: "Sarah Jenkins",
+    //   role: "Head of Product",
+    //   company: "Global Commerce Group",
+    //   avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300",
+    //   content: "An extraordinary engineer who truly understands both technical depth and visual aesthetics. Highly recommended for any ambitious full-stack project!",
+    //   rating: 5
+    // }
   ],
   inboxMessages: []
 };
