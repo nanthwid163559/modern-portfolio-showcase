@@ -3,7 +3,7 @@
   "darkMode": true,
   "profile": {
     "name": "Software Developer",
-    "title": "Senior Full-Stack & AI Solutions Engineer",
+    "title": "Senior Full-Stack & AI Solutions",
     "tagline": "Software Developer & เว็บแอปพลิเคชันยุคใหม่ด้วย AI และ Modern Web Tech",
     "bio": "นักพัฒนาซอฟต์แวร์ผู้หลงใหลในการออกแบบระบบ web architecture ที่มีประสิทธิภาพสูง สวยงาม ใช้งานง่าย และตอบโจทย์ธุรกิจจริง",
     "aboutDetail": "ผมมีประสบการณ์กว่า 5 ปีในการพัฒนาระบบ Web Application, Cloud Infrastructure และ AI Integration ทำงานครอบคลุมทั้ง Frontend UI/UX, Scalable Microservices และ Machine Learning Pipelines มีเป้าหมายในการส่งมอบซอฟต์แวร์ระดับพรีเมียมที่รวดเร็ว ปลอดภัย และสร้างคุณค่าอย่างมหาศาล",
@@ -262,6 +262,7 @@
       "highlights": [
         "พัฒนาระบบสำหรับทำ Enterprise Application",
         "ดูแลและปรับปรุงแก้ไขระบบให้แก่องค์กร",
+        "พัฒนาระบบจัดการฐานข้อมูลสำหรับองค์กรให้กับ ธนาคารกรุงไทย",
         "พัฒนาระบบจัดการฐานข้อมูลสำหรับองค์กรให้กับ ธนาคารกรุงไทย"
       ],
       "current": false

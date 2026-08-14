@@ -7,7 +7,6 @@ import {
   Star, 
   Grid, 
   List, 
-  Plus, 
   ArrowUpRight,
   Layers,
   Sparkles
@@ -19,14 +18,12 @@ interface ProjectsSectionProps {
   projects: Project[];
   currentTheme: ThemeColor;
   onSelectProject: (project: Project) => void;
-  onOpenEditor: () => void;
 }
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   projects,
   currentTheme,
-  onSelectProject,
-  onOpenEditor
+  onSelectProject
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -72,14 +69,6 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               An curated showcase of software engineering, web applications, and AI integrations built for high performance.
             </p>
           </div>
-
-          <button
-            onClick={onOpenEditor}
-            className="self-start md:self-auto px-5 py-3 rounded-none text-xs font-anton uppercase tracking-wider text-black bg-white hover:bg-[#FF3B00] hover:text-black transition-all flex items-center gap-2 cursor-pointer shadow-lg"
-          >
-            <Plus className="w-4 h-4" />
-            <span>ADD / EDIT PROJECTS</span>
-          </button>
         </div>
 
         {/* Filter Controls Bar */}

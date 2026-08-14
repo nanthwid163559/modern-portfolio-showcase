@@ -117,7 +117,6 @@ export default function App() {
         }}
         darkMode={darkMode}
         setDarkMode={setDarkMode}
-        onOpenEditor={() => setIsEditorOpen(true)}
         onOpenAIChat={() => setIsAIChatOpen(true)}
         onOpenAdminPortal={() => setIsAdminOpen(true)}
       />
@@ -129,7 +128,6 @@ export default function App() {
           profile={config.profile}
           currentTheme={currentTheme}
           onOpenAIChat={() => setIsAIChatOpen(true)}
-          onOpenEditor={() => setIsEditorOpen(true)}
         />
 
         {/* Projects Section */}
@@ -137,7 +135,6 @@ export default function App() {
           projects={config.projects}
           currentTheme={currentTheme}
           onSelectProject={(p) => setSelectedProject(p)}
-          onOpenEditor={() => setIsEditorOpen(true)}
         />
 
         {/* Skills Section */}
@@ -205,6 +202,10 @@ export default function App() {
         onClose={() => setIsAdminOpen(false)}
         config={config}
         onRefreshData={fetchBackendPortfolio}
+        onOpenLiveEditor={() => {
+          setIsAdminOpen(false);
+          setIsEditorOpen(true);
+        }}
       />
 
     </div>

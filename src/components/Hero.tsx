@@ -22,14 +22,12 @@ interface HeroProps {
   profile: PortfolioProfile;
   currentTheme: ThemeColor;
   onOpenAIChat: () => void;
-  onOpenEditor: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   profile,
   currentTheme,
-  onOpenAIChat,
-  onOpenEditor
+  onOpenAIChat
 }) => {
   const themeScheme = themeSchemes[currentTheme];
 

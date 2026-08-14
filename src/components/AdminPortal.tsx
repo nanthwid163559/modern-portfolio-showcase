@@ -23,7 +23,8 @@ import {
   Eye,
   AlertCircle,
   Copy,
-  Check
+  Check,
+  Settings
 } from 'lucide-react';
 import { PortfolioConfig, Project, Skill, ContactMessage } from '../types';
 
@@ -32,13 +33,15 @@ interface AdminPortalProps {
   onClose: () => void;
   config: PortfolioConfig;
   onRefreshData: () => void;
+  onOpenLiveEditor?: () => void;
 }
 
 export const AdminPortal: React.FC<AdminPortalProps> = ({
   isOpen,
   onClose,
   config,
-  onRefreshData
+  onRefreshData,
+  onOpenLiveEditor
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passcode, setPasscode] = useState('');
@@ -512,6 +515,16 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                 <Database className="w-4 h-4 text-emerald-400" />
                 <span>SUPABASE DATABASE</span>
               </button>
+
+              {onOpenLiveEditor && (
+                <button
+                  onClick={onOpenLiveEditor}
+                  className="px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border border-[#FF3B00]/40 text-[#FF3B00] bg-[#FF3B00]/10 hover:bg-[#FF3B00] hover:text-black cursor-pointer transition-colors whitespace-nowrap"
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>แก้ไขข้อมูลเว็บ (LIVE EDITOR)</span>
+                </button>
+              )}
             </div>
 
             {/* TAB CONTENT AREA */}

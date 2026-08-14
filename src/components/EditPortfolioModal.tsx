@@ -88,6 +88,13 @@ export const EditPortfolioModal: React.FC<EditPortfolioModalProps> = ({
             updated[index].shortDescription = data.refinedText;
             return { ...prev, projects: updated };
           });
+        } else if (fieldPath.startsWith('exp-desc-')) {
+          const index = parseInt(fieldPath.replace('exp-desc-', ''));
+          setTempConfig(prev => {
+            const updated = [...(prev.experiences || [])];
+            updated[index].description = data.refinedText;
+            return { ...prev, experiences: updated };
+          });
         }
       }
     } catch (err) {
@@ -147,6 +154,32 @@ export const EditPortfolioModal: React.FC<EditPortfolioModalProps> = ({
     setTempConfig(prev => ({
       ...prev,
       skills: prev.skills.filter(s => s.id !== id)
+    }));
+  };
+
+  // Experience Operations
+  const handleAddExperience = () => {
+    const newExp: Experience = {
+      id: `exp-${Date.now()}`,
+      company: "บริษัทใหม่ (New Company)",
+      role: "ตำแหน่งงาน (New Role)",
+      period: "2026 - ปัจจุบัน",
+      location: "Bangkok, Thailand",
+      description: "รายละเอียดการทำงานย่อๆ",
+      technologies: ["React", "Node.js"],
+      highlights: ["ผลงานเด่นข้อ 1", "ผลงานเด่นข้อ 2"],
+      current: false
+    };
+    setTempConfig(prev => ({
+      ...prev,
+      experiences: [newExp, ...(prev.experiences || [])]
+    }));
+  };
+
+  const handleDeleteExperience = (id: string) => {
+    setTempConfig(prev => ({
+      ...prev,
+      experiences: (prev.experiences || []).filter(e => e.id !== id)
     }));
   };
 
@@ -250,6 +283,18 @@ export const EditPortfolioModal: React.FC<EditPortfolioModalProps> = ({
           >
             <Code2 className="w-3.5 h-3.5" />
             <span>SKILLS ({tempConfig.skills.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('experience')}
+            className={`px-4 py-2 text-xs font-anton uppercase tracking-wider transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer border ${
+              activeTab === 'experience'
+                ? 'bg-[#FF3B00] text-black border-[#FF3B00]'
+                : 'bg-[#111111] text-slate-300 border-white/10 hover:border-[#FF3B00] hover:text-[#FF3B00]'
+            }`}
+          >
+            <Briefcase className="w-3.5 h-3.5" />
+            <span>EXPERIENCE ({(tempConfig.experiences || []).length})</span>
           </button>
 
           <button
@@ -572,7 +617,206 @@ export const EditPortfolioModal: React.FC<EditPortfolioModalProps> = ({
             </div>
           )}
 
-          {/* TAB 4: Backup / Export */}
+          {/* TAB 4: Experience Form */}
+          {activeTab === 'experience' && (
+            <div className="space-y-6 font-mono">
+              
+              <div className="flex items-center justify-between">
+                <h3 className="font-anton text-lg uppercase text-white tracking-wide">
+                  WORK HISTORY ({(tempConfig.experiences || []).length})
+                </h3>
+                <button
+                  onClick={handleAddExperience}
+                  className="px-3 py-1.5 font-anton text-xs uppercase text-black bg-[#FF3B00] hover:bg-[#ff5520] transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>ADD EXPERIENCE</span>
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {(tempConfig.experiences || []).map((exp, idx) => (
+                  <div
+                    key={exp.id}
+                    className="p-4 bg-[#111111] border border-white/15 space-y-3"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-[#FF3B00]">
+                        # {idx + 1}
+                      </span>
+                      <button
+                        onClick={() => handleDeleteExperience(exp.id)}
+                        className="text-rose-500 hover:text-rose-400 text-xs flex items-center gap-1 font-bold cursor-pointer uppercase"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>DELETE</span>
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-[10px] text-slate-400 uppercase">COMPANY NAME *</label>
+                        <input
+                          type="text"
+                          value={exp.company}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setTempConfig(prev => {
+                              const list = [...(prev.experiences || [])];
+                              list[idx].company = val;
+                              return { ...prev, experiences: list };
+                            });
+                          }}
+                          className="w-full px-3 py-2 bg-black border border-white/20 text-xs text-white focus:border-[#FF3B00] focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] text-slate-400 uppercase">ROLE / POSITION *</label>
+                        <input
+                          type="text"
+                          value={exp.role}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setTempConfig(prev => {
+                              const list = [...(prev.experiences || [])];
+                              list[idx].role = val;
+                              return { ...prev, experiences: list };
+                            });
+                          }}
+                          className="w-full px-3 py-2 bg-black border border-white/20 text-xs text-white focus:border-[#FF3B00] focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div>
+                        <label className="text-[10px] text-slate-400 uppercase">PERIOD (e.g. 2024 - PRESENT)</label>
+                        <input
+                          type="text"
+                          value={exp.period}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setTempConfig(prev => {
+                              const list = [...(prev.experiences || [])];
+                              list[idx].period = val;
+                              return { ...prev, experiences: list };
+                            });
+                          }}
+                          className="w-full px-3 py-2 bg-black border border-white/20 text-xs text-white focus:border-[#FF3B00] focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] text-slate-400 uppercase">LOCATION</label>
+                        <input
+                          type="text"
+                          value={exp.location}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setTempConfig(prev => {
+                              const list = [...(prev.experiences || [])];
+                              list[idx].location = val;
+                              return { ...prev, experiences: list };
+                            });
+                          }}
+                          className="w-full px-3 py-2 bg-black border border-white/20 text-xs text-white focus:border-[#FF3B00] focus:outline-none"
+                        />
+                      </div>
+
+                      <div className="flex items-center pt-5">
+                        <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                          <input
+                            type="checkbox"
+                            checked={exp.current}
+                            onChange={(e) => {
+                              const val = e.target.checked;
+                              setTempConfig(prev => {
+                                const list = [...(prev.experiences || [])];
+                                list[idx].current = val;
+                                return { ...prev, experiences: list };
+                              });
+                            }}
+                            className="accent-[#FF3B00]"
+                          />
+                          <span>CURRENT JOB (งานปัจจุบัน)</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <label className="text-[10px] text-slate-400 uppercase">DESCRIPTION</label>
+                        <button
+                          type="button"
+                          onClick={() => handleAIRefine(exp.description, `exp-desc-${idx}`, 'Job Description')}
+                          className="text-[10px] text-[#FF3B00] font-bold flex items-center gap-0.5 cursor-pointer uppercase"
+                        >
+                          <Sparkles className="w-3 h-3 text-[#FF3B00]" />
+                          <span>AI POLISH</span>
+                        </button>
+                      </div>
+                      <textarea
+                        rows={2}
+                        value={exp.description}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setTempConfig(prev => {
+                            const list = [...(prev.experiences || [])];
+                            list[idx].description = val;
+                            return { ...prev, experiences: list };
+                          });
+                        }}
+                        className="w-full px-3 py-2 bg-black border border-white/20 text-xs text-white focus:border-[#FF3B00] focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-[10px] text-slate-400 uppercase">TECHNOLOGIES (Comma-separated)</label>
+                        <input
+                          type="text"
+                          value={exp.technologies ? exp.technologies.join(', ') : ''}
+                          onChange={(e) => {
+                            const val = e.target.value.split(',').map(s => s.trim());
+                            setTempConfig(prev => {
+                              const list = [...(prev.experiences || [])];
+                              list[idx].technologies = val;
+                              return { ...prev, experiences: list };
+                            });
+                          }}
+                          placeholder="React, Angular, Node.js"
+                          className="w-full px-3 py-2 bg-black border border-white/20 text-xs text-white focus:border-[#FF3B00] focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] text-slate-400 uppercase">KEY HIGHLIGHTS (Comma-separated)</label>
+                        <input
+                          type="text"
+                          value={exp.highlights ? exp.highlights.join(', ') : ''}
+                          onChange={(e) => {
+                            const val = e.target.value.split(',').map(s => s.trim());
+                            setTempConfig(prev => {
+                              const list = [...(prev.experiences || [])];
+                              list[idx].highlights = val;
+                              return { ...prev, experiences: list };
+                            });
+                          }}
+                          placeholder="Designed system API, Developed dashboard"
+                          className="w-full px-3 py-2 bg-black border border-white/20 text-xs text-white focus:border-[#FF3B00] focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          )}
+
+          {/* TAB 5: Backup / Export */}
           {activeTab === 'backup' && (
             <div className="space-y-6 font-mono">
               
