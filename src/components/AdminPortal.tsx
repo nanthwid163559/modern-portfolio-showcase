@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Server, 
-  Terminal, 
-  Database, 
-  Activity, 
-  ShieldCheck, 
-  Lock, 
-  Key, 
-  Send, 
-  Trash2, 
-  Mail, 
-  CheckCircle2, 
-  Clock, 
-  RefreshCw, 
-  FolderGit2, 
-  Code2, 
-  User, 
-  Plus, 
-  X, 
+import {
+  Server,
+  Terminal,
+  Database,
+  Activity,
+  ShieldCheck,
+  Lock,
+  Key,
+  Send,
+  Trash2,
+  Mail,
+  CheckCircle2,
+  Clock,
+  RefreshCw,
+  FolderGit2,
+  Code2,
+  User,
+  Plus,
+  X,
   ExternalLink,
   ChevronRight,
   Eye,
@@ -346,7 +346,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md animate-in fade-in">
       <div className="w-full max-w-6xl max-h-[92vh] bg-[#0A0A0A] text-[#F5F5F5] border border-white/20 shadow-2xl overflow-hidden flex flex-col font-mono">
-        
+
         {/* Header Bar */}
         <div className="flex items-center justify-between p-4 bg-[#111111] border-b border-white/15">
           <div className="flex items-center gap-3">
@@ -443,11 +443,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
             <div className="flex items-center gap-1 p-2 bg-black border-b border-white/15 overflow-x-auto text-xs">
               <button
                 onClick={() => setActiveTab('overview')}
-                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${
-                  activeTab === 'overview'
+                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${activeTab === 'overview'
                     ? 'bg-[#FF3B00] text-black border-[#FF3B00]'
                     : 'bg-[#111111] text-slate-300 border-white/10 hover:border-[#FF3B00] hover:text-[#FF3B00]'
-                }`}
+                  }`}
               >
                 <Activity className="w-4 h-4" />
                 <span>REST SYSTEM OVERVIEW</span>
@@ -455,11 +454,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
               <button
                 onClick={() => setActiveTab('messages')}
-                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap relative ${
-                  activeTab === 'messages'
+                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap relative ${activeTab === 'messages'
                     ? 'bg-[#FF3B00] text-black border-[#FF3B00]'
                     : 'bg-[#111111] text-slate-300 border-white/10 hover:border-[#FF3B00] hover:text-[#FF3B00]'
-                }`}
+                  }`}
               >
                 <Mail className="w-4 h-4" />
                 <span>INBOX MESSAGES ({messages.length})</span>
@@ -470,11 +468,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
               <button
                 onClick={() => setActiveTab('api-tester')}
-                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${
-                  activeTab === 'api-tester'
+                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${activeTab === 'api-tester'
                     ? 'bg-[#FF3B00] text-black border-[#FF3B00]'
                     : 'bg-[#111111] text-slate-300 border-white/10 hover:border-[#FF3B00] hover:text-[#FF3B00]'
-                }`}
+                  }`}
               >
                 <Terminal className="w-4 h-4" />
                 <span>REST API EXPLORER & CONSOLE</span>
@@ -482,11 +479,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
               <button
                 onClick={() => setActiveTab('projects-crud')}
-                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${
-                  activeTab === 'projects-crud'
+                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${activeTab === 'projects-crud'
                     ? 'bg-[#FF3B00] text-black border-[#FF3B00]'
                     : 'bg-[#111111] text-slate-300 border-white/10 hover:border-[#FF3B00] hover:text-[#FF3B00]'
-                }`}
+                  }`}
               >
                 <FolderGit2 className="w-4 h-4" />
                 <span>PROJECTS CRUD</span>
@@ -494,11 +490,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
               <button
                 onClick={() => setActiveTab('skills-crud')}
-                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${
-                  activeTab === 'skills-crud'
+                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${activeTab === 'skills-crud'
                     ? 'bg-[#FF3B00] text-black border-[#FF3B00]'
                     : 'bg-[#111111] text-slate-300 border-white/10 hover:border-[#FF3B00] hover:text-[#FF3B00]'
-                }`}
+                  }`}
               >
                 <Code2 className="w-4 h-4" />
                 <span>SKILLS CRUD</span>
@@ -506,11 +501,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
               <button
                 onClick={() => setActiveTab('supabase')}
-                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${
-                  activeTab === 'supabase'
+                className={`px-4 py-2 font-anton text-xs uppercase tracking-wider flex items-center gap-2 border cursor-pointer transition-colors whitespace-nowrap ${activeTab === 'supabase'
                     ? 'bg-[#FF3B00] text-black border-[#FF3B00]'
                     : 'bg-[#111111] text-slate-300 border-white/10 hover:border-[#FF3B00] hover:text-[#FF3B00]'
-                }`}
+                  }`}
               >
                 <Database className="w-4 h-4 text-emerald-400" />
                 <span>SUPABASE DATABASE</span>
@@ -529,11 +523,11 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
             {/* TAB CONTENT AREA */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-[#0A0A0A]">
-              
+
               {/* TAB 1: OVERVIEW */}
               {activeTab === 'overview' && (
                 <div className="space-y-6">
-                  
+
                   {/* Status Cards Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="p-4 bg-[#111111] border border-white/15 space-y-2">
@@ -676,11 +670,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                       {messages.map((msg) => (
                         <div
                           key={msg.id}
-                          className={`p-4 border transition-all space-y-3 ${
-                            msg.read
+                          className={`p-4 border transition-all space-y-3 ${msg.read
                               ? 'bg-[#0A0A0A] border-white/10 opacity-75'
                               : 'bg-[#111111] border-[#FF3B00]/60 shadow-lg'
-                          }`}
+                            }`}
                         >
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2">
                             <div className="flex items-center gap-2">
@@ -741,7 +734,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
               {/* TAB 3: REST API EXPLORER & CONSOLE */}
               {activeTab === 'api-tester' && (
                 <div className="space-y-6">
-                  
+
                   <div className="p-6 bg-[#111111] border border-white/15 space-y-4">
                     <h3 className="font-anton text-lg uppercase text-white flex items-center gap-2">
                       <Terminal className="w-5 h-5 text-[#FF3B00]" />
@@ -749,7 +742,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-                      
+
                       {/* Endpoint Selector */}
                       <div className="md:col-span-5 space-y-3">
                         <label className="text-[10px] text-slate-400 uppercase font-bold">
@@ -873,7 +866,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
               {/* TAB 4: PROJECTS CRUD VIA REST */}
               {activeTab === 'projects-crud' && (
                 <div className="space-y-6">
-                  
+
                   {/* Create New Project Form */}
                   <div className="p-6 bg-[#111111] border border-white/15 space-y-4">
                     <h3 className="font-anton text-lg uppercase text-white flex items-center gap-2">
@@ -969,7 +962,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
               {/* TAB 5: SKILLS CRUD VIA REST */}
               {activeTab === 'skills-crud' && (
                 <div className="space-y-6">
-                  
+
                   {/* Create New Skill Form */}
                   <div className="p-6 bg-[#111111] border border-white/15 space-y-4">
                     <h3 className="font-anton text-lg uppercase text-white flex items-center gap-2">
@@ -1064,7 +1057,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
               {/* TAB 6: SUPABASE EXTERNAL DATABASE INTEGRATION */}
               {activeTab === 'supabase' && (
                 <div className="space-y-6">
-                  
+
                   {/* Status Banner */}
                   <div className="p-6 bg-[#111111] border border-white/15 space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
@@ -1100,13 +1093,12 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                     </div>
 
                     {/* Status details message */}
-                    <div className={`p-4 border text-xs font-mono leading-relaxed ${
-                      supabaseStatus?.connected 
-                        ? 'bg-emerald-950/30 border-emerald-500/50 text-emerald-300' 
-                        : supabaseStatus?.configured 
-                        ? 'bg-amber-950/30 border-amber-500/50 text-amber-300'
-                        : 'bg-black border-white/20 text-slate-300'
-                    }`}>
+                    <div className={`p-4 border text-xs font-mono leading-relaxed ${supabaseStatus?.connected
+                        ? 'bg-emerald-950/30 border-emerald-500/50 text-emerald-300'
+                        : supabaseStatus?.configured
+                          ? 'bg-amber-950/30 border-amber-500/50 text-amber-300'
+                          : 'bg-black border-white/20 text-slate-300'
+                      }`}>
                       {loadingSupabaseStatus ? (
                         <div className="flex items-center gap-2 text-slate-400">
                           <RefreshCw className="w-4 h-4 animate-spin" />
@@ -1120,7 +1112,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
                   {/* Setup Instructions Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
+
                     {/* Step 1: Environment Variables */}
                     <div className="p-6 bg-[#111111] border border-white/15 space-y-4">
                       <div className="flex items-center gap-2 text-[#FF3B00] font-anton text-sm uppercase">

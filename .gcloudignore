@@ -1,0 +1,36 @@
+# Ignore git and IDE files
+.git
+.gitignore
+.antigravity-ide
+.gemini
+
+# Ignore local dependencies and builds
+node_modules/
+dist/
+bun.lock
+
+# Ignore local env secrets
+.env
+.env.local
+.env.production
+
+# Ignore document files
+README.md
+LICENSE
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.pdf
+
+# Ignore macOS metadata
+.DS_Store
+.Trash/
+Library/
+Library/CloudStorage/
+
+# Ignore all socket files and sandboxes
+**/*.sock
+*.sock
+sandboxes/
+.sandbox/
